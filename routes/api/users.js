@@ -2,6 +2,9 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+const gravatar = require('gravatar');
+const keys = require("../../config/keys");
 
 const User = require("../../models/User");
 // $route GET api/users/test
@@ -22,19 +25,20 @@ router.post("/register",(req, res)=>{
     User.findOne({email: req.body.email})
         .then((user)=>{
             if(user){
-                return res.status(400).json({email:"邮箱已被注册"});
+                return res.status(400).json({msg:"邮箱已被注册"});
             }
+            var avatar = gravatar.url(req.body.email,
+                {s: '200', r: 'pg', d: 'mm'});
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
-                // avatar,
+                avatar,
                 password: req.body.password
             });
 
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(newUser.password, salt, (err, hash)=>{
                     if(err) throw err;
-
                     newUser.password = hash;
                     newUser.save()
                         .then((user)=> res.json(user))
@@ -44,4 +48,52 @@ router.post("/register",(req, res)=>{
         })
 
 });
+
+
+// $route POST api/users/login
+// @desc 返回token jwt passport
+// @access private
+router.post("/login", (req, res)=>{
+    const email = req.body.email;
+    const password = req.body.password;
+    // 查询数据库
+    User.findOne({email})
+        .then(user =>{
+            if(!user){
+                return res.status(404).json({msg: "用户不存在"})
+            }
+            // 密码匹配
+            bcrypt.compare(password, user.password)
+                .then(isMatch=>{
+                    if(isMatch){
+                        // 匹配成功
+                        // jwt.sign("规则","加密名字","过期时间(秒)","箭头函数")
+                        const rule = {
+                            id:user.id,
+                            name: user.name
+                        };
+                        jwt.sign(rule, keys.secretOrKey,{expiresIn:3600},(err, token)=>{
+                           if(err) throw err;
+                            res.json({
+                                success: true,
+                                token: "ms4node"+ token
+                            })
+                        });
+                        // res.json({msg:"success", user})
+                    }else{
+                        return res.status(400).json({msg:"密码错误"})
+                    }
+                })
+        })
+});
+
+// $route GET api/users/current
+// @desc 返回 current user
+// @access private
+router.get("/current", (req, res)=>{
+   res.json({
+       msg: "success"
+   })
+});
+
 module.exports = router;
