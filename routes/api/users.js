@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const gravatar = require('gravatar');
 const keys = require("../../config/keys");
+const passport = require("passport");
 
 const User = require("../../models/User");
 // $route GET api/users/test
@@ -76,7 +77,7 @@ router.post("/login", (req, res)=>{
                            if(err) throw err;
                             res.json({
                                 success: true,
-                                token: "ms4node"+ token
+                                token: "Bearer "+ token
                             })
                         });
                         // res.json({msg:"success", user})
@@ -90,10 +91,11 @@ router.post("/login", (req, res)=>{
 // $route GET api/users/current
 // @desc 返回 current user
 // @access private
-router.get("/current", (req, res)=>{
+router.get("/current",passport.authenticate("jwt", {session:false}), (req, res)=>{
    res.json({
-       msg: "success"
+       id: req.user.id,
+       name: req.user.name,
+       email: req.user.email
    })
 });
-
 module.exports = router;
