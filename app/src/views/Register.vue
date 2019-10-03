@@ -27,6 +27,10 @@
                     <el-form-item>
                         <el-button type="primary" class="submit-btn" @click="submitForm('registerForm')">注册</el-button>
                     </el-form-item>
+
+                    <div class="tiparea">
+                        <p>已有账号?直接<router-link to="/login">登陆</router-link></p>
+                    </div>
                 </el-form>
 
             </div>
@@ -140,5 +144,13 @@
 
     .submit-btn {
         width: 100%;
+    }
+    .tiparea {
+        text-align: right;
+        font-size: 12px;
+        color: #333;
+    }
+    .tiparea p a {
+        color: #409eff;
     }
 </style>
