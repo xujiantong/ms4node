@@ -9,7 +9,7 @@
                     <el-form-item label="用户名" prop="name">
                         <el-input  v-model="registerUser.name"  placeholder="请输入用户名"></el-input>
                     </el-form-item>
-                    <el-form-item label="邮箱" prop="name">
+                    <el-form-item label="邮箱" prop="email">
                         <el-input  v-model="registerUser.email" autocomplete='email' placeholder="请输入邮箱"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
@@ -39,6 +39,13 @@
         name: "register",
         components: {},
         data() {
+            var validatePass2 = (rule, value, callback) => {
+                if (value !== this.registerUser.password) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
             return {
                 registerUser:{
                     name:"",
@@ -47,12 +54,45 @@
                     password2:"",
                     identity:"employee",
                 },
-                rules:{}
+                rules: {
+                    name: [
+                        {required: true, message: "用户名不能为空", trigger: "blur"},
+                        {min: 2, max: 30, message: "用户名长度应在2-30个字符之间", trigger: "blur"}
+                    ],
+                    email: [
+                        {type: "email", required: true, message: "邮箱格式不正确", trigger: "blur"}
+                    ],
+                    password: [
+                        {required: true, message: "密码不能为空", trigger: "blur"},
+                        {min: 6, max:30, message: "密码长度应在6-30位之间", trigger: "blur"}
+                    ],
+                    password2: [
+                        {validator: validatePass2, trigger:"blur"},
+                        {required: true, message: "确认密码不能为空", trigger: "blur"},
+                        {min: 6, max:30, message: "确认密码长度应在6-30位之间", trigger: "blur"}
+
+                    ],
+                }
             }
         },
         methods: {
-            submitForm(){
+            submitForm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$axios.post("/api/users/register", this.registerUser)
+                            .then(res=>{
+                                // 注册成功
+                                console.log(res);
+                                this.$message({
+                                    message: '账号注册成功',
+                                    type: 'success'
+                                })
+                                this.$router.push('/login')
 
+                            })
+                    }
+
+                });
             }
         }
     }
