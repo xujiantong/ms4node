@@ -6,6 +6,39 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="css/reset.css">
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <style>
+      /*滚动条样式*/
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 14px;
+      }
+      ::-webkit-scrollbar-track,
+      ::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        /*border: 10px solid transparent;*/
+      }
+      /*定义滚动条轨道 内阴影+圆角*/
+      ::-webkit-scrollbar-track {
+        /*box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2) inset;*/
+        background: #eee;
+      }
+      /*定义滑块 内阴影+圆角*/
+      ::-webkit-scrollbar-thumb {
+        min-height: 20px;
+        background-clip: content-box;
+        /*box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.2) inset;*/
+        background: #ccc;
+      }
+
+      ::-webkit-scrollbar-corner {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+    </style>
     <title>app</title>
   </head>
   <body>

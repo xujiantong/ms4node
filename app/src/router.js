@@ -14,7 +14,13 @@ const router =  new Router({
     {
       path: '/index',
       name: 'index',
-      component: () => import(/* webpackChunkName: "home" */ './views/Index.vue')
+      component: () => import(/* webpackChunkName: "index" */ './views/Index.vue'),
+      children:[
+        {path:"", component: () => import(/* webpackChunkName: "home" */ './views/Home.vue')},
+        {path:"/home", name:"home", component: () => import(/* webpackChunkName: "home" */ './views/Home.vue')},
+        {path:"/infoshow", name:"infoshow", component: () => import(/* webpackChunkName: "home" */ './views/InfoSHow.vue')},
+        {path:"/fundlist", name:"fundlist", component: () => import(/* webpackChunkName: "home" */ './views/FundList.vue')},
+      ]
     },
     {
       path: '/register',
