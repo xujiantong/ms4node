@@ -50,6 +50,14 @@ module.exports = {
                 pathRewrite: {
                     '^/api': ''
                 }
+            },
+            '/mokcloud': {
+                target: 'http://localhost:8081/mokcloud/',
+                ws: true,
+                changOrigin: true,
+                pathRewrite: {
+                    '^/mokcloud': ''
+                }
             }
         },
         before: app => { }

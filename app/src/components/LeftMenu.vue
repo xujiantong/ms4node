@@ -51,6 +51,14 @@
                         children:[
                             {path:"infoshow", name:"个人信息"}
                         ]
+                    },
+                    {
+                        icon: "fa-asterisk",
+                        name: "权限管理",
+                        path: "premission",
+                        children:[
+                            {path:"dept", name:"部门管理"}
+                        ]
                     }
                 ]
             }

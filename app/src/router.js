@@ -18,8 +18,9 @@ const router =  new Router({
       children:[
         {path:"", component: () => import(/* webpackChunkName: "home" */ './views/Home.vue')},
         {path:"/home", name:"home", component: () => import(/* webpackChunkName: "home" */ './views/Home.vue')},
-        {path:"/infoshow", name:"infoshow", component: () => import(/* webpackChunkName: "home" */ './views/InfoSHow.vue')},
-        {path:"/fundlist", name:"fundlist", component: () => import(/* webpackChunkName: "home" */ './views/FundList.vue')},
+        {path:"/infoshow", name:"infoshow", component: () => import(/* webpackChunkName: "InfoSHow" */ './views/InfoSHow.vue')},
+        {path:"/fundlist", name:"fundlist", component: () => import(/* webpackChunkName: "FundList" */ './views/FundList.vue')},
+        {path:"/dept", name:"dept", component: () => import(/* webpackChunkName: "dept" */ './views/premission/Dept.vue')},
       ]
     },
     {

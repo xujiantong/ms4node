@@ -57,7 +57,7 @@
 
 <script>
     export default {
-        name: "DialogFound",
+        name: "DialogDept",
         props:{
             dialog: Object,
             form: Object
