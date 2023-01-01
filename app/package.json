@@ -13,15 +13,15 @@
     "element-ui": "^2.12.0",
     "jwt-decode": "^2.2.0",
     "less": "^3.10.3",
-    "less-loader": "^5.0.0",
+    "less-loader": "^11.1.0",
     "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "vue-template-compiler": "^2.6.10"
   },
   "postcss": {
